@@ -47,3 +47,15 @@ print(S.replace('1','one'))
 #8
 S = input()
 print(S.replace('@',''))
+#11
+S = input()
+a = S[S.find('h')+1:S.rfind('h')]
+a = a.replace('h','H')
+print(S[0:S.find('h')+1]+a+S[S.rfind('h'):len(S)])
+#12
+S = input()
+v = ''
+for i in range( len(S)):
+    if i%3 !=0:
+        v = v + S[i]
+print(S[0]+v)

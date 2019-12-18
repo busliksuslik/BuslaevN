@@ -112,16 +112,15 @@ j =int(input())
 swap_columns(a,i,j)
 ######################################
 #7
-n= 10
-m =11
-a = [[m*i+j+1 if i%2==0 else m*(i+1)-j  for j in range(m)]for i in range(n)]
+n= int(input('строки '))
+m =int(input('столбцы '))
+a = [[m*i+j if i%2==0 else m*(i+1)-j-1  for j in range(m)]for i in range(n)]
 #yeah,this is big brain time
 #если строка чётная(0,2,4...), то значения идут слева на право, m*i - первое значение строки, m*(i+1) - первое значение следующей строки
-#https://www.youtube.com/watch?v=dQw4w9WgXcQ
 for i in range(n):#выводим массив
     print()
     for t in range(m):
-        print(a[i][t],end=' ')
+        print('{:>5}'.format(a[i][t]),end=' ')
 
 
     

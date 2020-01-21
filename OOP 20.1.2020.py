@@ -106,38 +106,49 @@ while inGame:
 print('Игрок',damPl,'Убил игрока',defPl)
 
 
+"генерация случайных чисел"
 import random
 class Person():
-    def __init__(self):
-        self.id = id(self)
+    """родительский класс person. В конструктор берёт принадлежность команде, и создаёт id """
+    def __init__(self,a):
+        self.id = random.randint(0,100)
         self.comm = a
 class Hero(Person):
+    """класс герой имеет уровень и солдат, следующих за ним """
     lvl = 0
     solders = []
     def add_solder(self,solder):
+        "добавляет солдата к массиву солдата"
         self.solders.append(solder)
     def solders_id(self):
+        "выводит id следующих за героем солдат "
         for i in range(len(self.solders)):
             print(self.solders[i].id)
     def lvl_up(self):
+        "увеличивает уровень героя на 1"
         self.lvl +=1
     def print_id(self):
+        "выводит свой id, а потом id солдат"
         print(self.id)
         self.solders_id()
 class Solder(Person):
+    "класс солдат может идти за героем"
     def go_with_hero(self,herocom):
+        "заставлет идти за героем из заданого массива"
         herocom[0].add_solder(self)
 num_comm = 6
-comm = [[Hero()]for i in range(0,num_comm)]
+comm = [[Hero(i)]for i in range(0,num_comm)]
 solders = []
-for i in range(10):
+for i in range(20):
     a = random.randint(0,num_comm-1)
-    comm[a].append(Solder())
+    comm[a].append(Solder(a))
 t = 0
+b = 0
 for i in range(num_comm-1):
     if  t<len(comm[i]):
         t = len(comm[i])
-comm[i][0].lvl_up()
+        b = i   
+comm[b][0].lvl_up()
 for i in range(num_comm):
     print(comm[i][0].lvl)
 comm[0][1].go_with_hero(comm[0])

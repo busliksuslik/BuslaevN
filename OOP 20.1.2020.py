@@ -82,27 +82,36 @@ a = Aadress()
 
 import random
 class Warrior():
+    """класс воителя. Есть дамаг и хп"""
     hp = 100
     dmg = 20
     def damage(self):
+        """метод, возвращающий кол-во дамага война"""
         return self.dmg
     def defence(self,a):
+        """метод, берущий число, вычитающий его из хп. Если хп персонажа стало меньше или равно 0,
+        тогда метод возвращает ложь, иначе правду"""
         self.hp-=a
         if self.hp<=0:
             return False
         else:
             return True
-a = 10
-warriors = [Warrior() for i in range(0,a)]
-inGame = True
-print(len(warriors))
-while inGame:
+a = 10 # кол-во войнов
+warriors = [Warrior() for i in range(0,a)]#генерация войнов
+inGame = True # значения для отслеживания, идёт ли игра
+# цикл игры
+while inGame: # выход если значение inGame сменится на ложь
+    # выбор атакующего и защищающегося
     damPl = random.randint(0,a-1)
     defPl = random.randint(0,a-1)
+    # защита от суицида
     while damPl == defPl:
         defPl = random.randint(0,a-1)
+    # сама битва, сменит значение inGame, если кто-то умрёт
     inGame = warriors[defPl].defence(warriors[damPl].damage())
+    # вывод атакующего и защищающегося
     print(damPl,'юнит атаковал, у юнита ',defPl,'осталось',warriors[defPl].hp)
+# после цикла, вывод последнего атакующего и защищающегося
 print('Игрок',damPl,'Убил игрока',defPl)
 
 
@@ -136,22 +145,30 @@ class Solder(Person):
     def go_with_hero(self,herocom):
         "заставлет идти за героем из заданого массива"
         herocom[0].add_solder(self)
+# генерация команд
 num_comm = 6
 comm = [[Hero(i)]for i in range(0,num_comm)]
+# массив с будующими солдатами
 solders = []
+# заполнение массива с солдатами солдатами
 for i in range(20):
     a = random.randint(0,num_comm-1)
     comm[a].append(Solder(a))
+# вычисление команды с наибольшим кол-ом персонажей
 t = 0
 b = 0
 for i in range(num_comm-1):
     if  t<len(comm[i]):
         t = len(comm[i])
         b = i   
+# апаем героя нужной команды
 comm[b][0].lvl_up()
+# выводим уровни героев всех команд, чтобы предыдущие действия не казались бессмысленными
 for i in range(num_comm):
     print(comm[i][0].lvl)
+# заставляем солдата 0 команды идти за героем
 comm[0][1].go_with_hero(comm[0])
+# выводим id 0 героя и всех солдат идущих за ним
 comm[0][0].print_id()
 
 
